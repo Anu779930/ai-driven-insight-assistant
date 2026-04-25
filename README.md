@@ -1,4 +1,4 @@
-# 🤖 AI Sales Insight Assistant & Anomaly Agent
+# 🤖 AI-Driven Insights Agent
 
 **Author:** Venkata Sai Anusha Kommasani  
 **Location:** Minnetonka, Minnesota  
@@ -8,7 +8,7 @@
 ---
 
 ## 🧠 Project Overview
-The **AI Sales Insight Assistant** is a high-performance Python-based data agent. It bridges the gap between raw datasets and executive decision-making by combining **Natural Language Processing (NLP)** for querying with **Unsupervised Machine Learning** for auditing.
+The **AI Driven  Insight Assistant** is a high-performance Python-based data agent. It bridges the gap between raw datasets and executive decision-making by combining **Natural Language Processing (NLP)** for querying with **Unsupervised Machine Learning** for auditing.
 
 This agent doesn't just answer "What happened?"; it uses an **Isolation Forest** algorithm to find "What's wrong?" and **GPT-4o** to explain "What to do next."
 
