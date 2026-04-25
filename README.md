@@ -1,120 +1,145 @@
-# 🤖 AI Sales Insight Assistant
+# 🤖 AI Sales Insight Assistant & Anomaly Agent
 
 **Author:** Venkata Sai Anusha Kommasani  
-**Date:** October 2025  
-**Tools:** Python · Pandas · Typer · Rich  
+**Location:** Minnetonka, Minnesota  
+**Date:** October 2025 – December 2025  
+**Tools:** Python · Scikit-Learn · OpenAI · Pandas · Typer · Rich  
 
 ---
 
 ## 🧠 Project Overview
-The **AI Sales Insight Assistant** is a Python-based conversational analytics tool that transforms natural-language sales questions into actionable insights.  
-It acts as an **AI-powered analytics copilot**, interpreting questions like “Profit by region last year” or “Total sales last month in CA.”  
-This project merges **AI reasoning** with **data analytics**, ideal for Data Analysts, Business Analysts, and AI Automation roles.
+The **AI Sales Insight Assistant** is a high-performance Python-based data agent. It bridges the gap between raw datasets and executive decision-making by combining **Natural Language Processing (NLP)** for querying with **Unsupervised Machine Learning** for auditing.
+
+This agent doesn't just answer "What happened?"; it uses an **Isolation Forest** algorithm to find "What's wrong?" and **GPT-4o** to explain "What to do next."
 
 ---
 
 ## 🎯 Objectives
-- Convert plain English questions into structured analytics  
-- Detect time windows automatically (`last month`, `this year`, etc.)  
-- Filter by region, category, and product  
-- Compute sales and profit dynamically  
-- Build the foundation for AI-driven dashboards  
+* **Conversational Analytics:** Transform natural-language questions into structured Pandas queries.
+* **Automated Auditing:** Identify financial outliers and potential data-entry errors using ML.
+* **Generative Insights:** Summarize complex statistical anomalies into human-readable business advice.
+* **Enterprise MLOps:** Maintain secure configuration via environment variables and modular CLI architecture.
 
 ---
 
-## 🧩 Features
+## 🧩 Key Features
 
-### 🗣️ Natural-Language Querying
-Ask questions like:
-- "total sales last month in CA"  
-- "profit by region last year"  
-- "sales by month this year"  
-- "top 3 categories by sales in 2017"
+### 🗣️ Natural-Language Analytics (`src/`)
+Interpret complex queries through a custom NLP parsing engine:
+* *"Total sales last month in CA"*
+* *"Top 3 categories by sales in 2017"*
+* *"Profit by region last year"*
 
-### 📅 Intelligent Time Filters
-Supports:
-- last month  
-- this year  
-- last year  
-- specific years (2017, 2025)
+### 🔍 ML-Powered Anomaly Detection (`app/`)
+Uses the **Isolation Forest** algorithm to detect outliers in sales and profit distributions.
+* Detects pricing errors (e.g., high sales with near-zero profit).
+* Prevents "Bill Shock" or "Data Skew" in executive reporting.
 
-### 📍 Smart Filters
-- Detects U.S. states and abbreviations (CA → California)  
-- Recognizes category, product, and region filters  
+### 🤖 Generative AI Reporting (`app/`)
+Integrates with **OpenAI's GPT-4o-mini** to provide:
+* Prescriptive recommendations based on detected anomalies.
+* Automatic KPI trend identification.
 
-### 📊 Grouping and Ranking
-Groups by:
-- Region  
-- State  
-- Category  
-- Product  
-- Month  
-
-Handles Top-N queries like *top 5 products* or *top 3 categories*.  
-
-### 💾 Robust CSV Handling
-- Auto-detects encoding (UTF-8, Latin-1, etc.)  
-- Cleans and normalizes column names  
-- Parses date fields intelligently  
-- Adds derived columns (Year, Month, MonthName)  
+### 🛡️ Production-Grade Engineering
+* **Secure Config:** Managed via `.env` files to protect API credentials.
+* **Robust Ingestion:** Handles schema drift and encoding issues (UTF-8/Latin-1).
+* **Styled UI:** Dynamic terminal-based dashboards using the **Rich** library.
 
 ---
 
-## ⚙️ Technologies Used
-| Tool | Purpose |
-|------|----------|
-| Python 3.10+ | Core programming |
-| pandas | Data analytics |
-| Typer | Command-line interface |
-| Rich | Styled console output |
-| Superstore Dataset | Real-world sales data |
-
----
 ## 📁 Folder Structure
 
-**Project Directory**
-
+```text
 ai-sales-insight-assistant/
 │
+├── app/                  # Core AI Agent Logic
+│   ├── anomaly.py        # ML Outlier Detection (Isolation Forest)
+│   ├── cli.py            # Main Agent CLI Entrance
+│   ├── ingestion.py      # Data Ingestion & Encoding Handling
+│   ├── insights.py       # LLM Integration (OpenAI)
+│   └── preprocessing.py  # Data Cleaning & Normalization
+│
+├── src/                  # Conversational Chatbot Logic
+│   ├── chatbot.py        # NLP Query Interface
+│   └── query_engine.py   # SQL-like Analytics Engine
+│
 ├── data/
-│   └── Sample - Superstore.csv
+│   └── Sample - Superstore.csv  # Real-world Sales Dataset
 │
-├── src/
-│   ├── chatbot.py         → CLI interface
-│   └── query_engine.py    → Core analytics logic
-│
-├── requirements.txt
-└── README.md
+├── .env                  # API Keys (Local Only - Not in Git)
+├── requirements.txt      # Project Dependencies
+└── README.md             # Documentation
+
+## ⚙️ Technologies Used
+
+| Tool | Purpose |
+| :--- | :--- |
+| **Python 3.10+** | Core Programming |
+| **Scikit-Learn** | Unsupervised Machine Learning (Isolation Forest) |
+| **OpenAI API** | Generative AI Reasoning (GPT-4o-mini) |
+| **Pandas** | Data Wrangling & Analytics |
+| **Typer** | Modular Command-Line Interface |
+| **Rich** | Styled Console Output & Dashboards |
 
 ---
 
-## 🧮 Example Queries & Outputs
+## 🧮 Example Execution
 
-**Profit by Region**  
-Command:  
-`python -m src.chatbot "profit by region last year"`  
-Output:  
-`Profit (2016-01-01 → 2016-12-31) by Region — West: $24,051.61; East: $20,141.60; Central: $19,899.16; South: $17,702.81.`  
+**Run the AI Agent (Anomaly Analysis):**
+```powershell
+python -m app.cli data/sample.csv
 
-**Sales in California**  
-Command:  
-`python -m src.chatbot "total sales last month in CA"`  
-Output:  
-`Sales in California (2017-11-01 → 2017-11-30) — $11,701.08.`  
+The agent will load the data, run ML detection, and print a magenta-colored AI Business Insight report.
 
-**Top 3 Categories**  
-Command:  
-`python -m src.chatbot "top 3 categories by sales in 2017"`  
-Output:  
-`Sales (2017-01-01 → 2017-12-31) by Product — Canon imageCLASS 2200 Advanced Copier: $35,699.90; Martin Yale Chadless Opener Electric Letter Opener: $11,825.90; GBC DocuBind TL300 Electric Binding System: $10,943.28.`  
+**Run the Chatbot (NLQ):**
 
-**Monthly Sales Trend**  
-Command:  
-`python -m src.chatbot "sales by month this year"`  
-Output:  
-`Sales (2017-01-01 → 2017-12-30) by MonthName — Jan: $64,734.31; Feb: $50,011.49; Mar: $74,774.08; Apr: $39,072.00; May: $40,882.45; Jun: $47,742.33; Jul: $54,382.09; Aug: $75,675.30; Sep: $74,164.61; Oct: $65,501.16; Nov: $89,306.24; Dec: $56,969.20.`  
+```powershell
+python -m src.chatbot "profit by region last year"
+```
 
 ---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Anu779930/ai-sales-insight-assistant.git
+cd ai-sales-insight-assistant
+```
+
+### 2. Setup Environment
+
+Create a `.env` file in the root directory.
+
+Add your key:
+
+```
+OPENAI_API_KEY=sk-your-key-here
+```
+
+Ensure `.env` is added to your `.gitignore`.
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the Agent
+
+```bash
+python -m app.cli data/sample.csv
+```
+
+---
+
+## 🌟 Future Enhancements
+
+* AgentForce Integration: Connecting the backend to Salesforce Einstein
+* Vector Storage: Implementing RAG (Retrieval-Augmented Generation) for unstructured sales notes
+* Interactive Dashboards: Building a Streamlit frontend for non-technical users
+
 
 ## 🧾 Requirements
 
